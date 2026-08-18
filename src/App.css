@@ -1,38 +1,68 @@
+/* Estilos generales */
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f4f9;
+  margin: 0;
+  padding: 20px;
+}
+
 .App {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 20px;
+}
+
+/* Estilos para el encabezado */
+
+h1 {
+  color: #2c3e50;
   text-align: center;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 10px;
+  margin-top: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+/* Lista de canciones */
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.song-list {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 10px;
+  margin-top: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+/* Cada canción (estilo que afecta al div dentro de Song) */
+
+.song-list > div {
+  background-color: #ecf0f1;
+  padding: 12px 18px;
+  border-radius: 6px;
+  border-left: 5px solid #3498db;
+  transition: background-color 0.2s;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.song-list > div:hover {
+  background-color: #d5dbdb;
+}
+
+.song-list p {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #2c3e50;
+}
+
+.song-list strong {
+  color: #2980b9;
+}
+
+/* Ajuste para duración */
+
+.song-list p span.duration {
+  font-style: italic;
+  color: #7f8c8d;
+  margin-left: 10px;
 }
