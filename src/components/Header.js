@@ -1,9 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
+import './Header/styles.css';
 
-class Header extends Component {
-  render() {
-    return <h1>Biblioteca Musical</h1>;
-  }
+function Header() {
+  return (
+    <header className="header">
+      <h1>🎵 Biblioteca Musical</h1>
+      <p>Descubre y Guarda Tus Canciones Favoritas</p>
+    </header>
+  );
 }
 
 export default Header;

@@ -1,48 +1,56 @@
-import React, { Component } from 'react';
-import './App.css';                       // # Mantenemos la importación de estilos
-import Header from './components/Header'; 
-import Song from './components/Song';     
+import React, { useState, useEffect } from 'react';
+import './App.css';
+import Header from './components/Header';
+import SearchResults from './components/SearchResults';
+import Library from './components/Library';
 
-class App extends Component {
-  // Método del ciclo de vida
-  componentDidMount() {
-    console.log('La app se ha cargado correctamente');
-  }
 
-  render() {
-    // Datos ficticios (al menos 3 canciones)
-    const songs = [
-      { title: 'Bohemian Rhapsody', artist: 'Queen', album: 'A Night at the Opera', duration: '5:55' },
-      { title: 'Imagine', artist: 'John Lennon', album: 'Imagine', duration: '3:03' },
-      { title: 'Billie Jean', artist: 'Michael Jackson', album: 'Thriller', duration: '4:54' }
-    ];
+function App() {
+  const [searchResults, setSearchResults] = useState([
+    { id: 1, title: 'Bohemian Rhapsody', artist: 'Queen', duration: '5:55' },
+    { id: 2, title: 'Imagine', artist: 'John Lennon', duration: '3:03' },
+    { id: 3, title: 'Billie Jean', artist: 'Michael Jackson', duration: '4:54' }
+  ]);
 
-    return (
-      <div className="App">
-        {/* Encabezado de la app */}
-        <Header />
-        
-        {/* Lista de canciones */}
-        <div className="song-list">
-          <Song 
-            title={songs[0].title} 
-            artist={songs[0].artist} 
-            duration={songs[0].duration} 
-          />
-          <Song 
-            title={songs[1].title} 
-            artist={songs[1].artist} 
-            duration={songs[1].duration} 
-          />
-          <Song 
-            title={songs[2].title} 
-            artist={songs[2].artist} 
-            duration={songs[2].duration} 
-          />
-        </div>
+  //setSearchResults();
+
+  const [library, setLibrary] = useState([]);
+
+
+  const addToLibrary = (song) => {
+    const exists = library.some(item => item.id === song.id);
+    if (exists) {
+      alert('Esta canción ya está en tu biblioteca');
+      return;
+    }
+    setLibrary([...library, song]);
+  };
+
+
+  // Función para eliminar canciones de la biblioteca
+  const removeFromLibrary = (songId) => {
+    setLibrary(library.filter(song => song.id !== songId));
+  };
+
+
+  useEffect(() => {
+    if (library.length === 0) {
+      console.log('La biblioteca está vacía. ¡Agrega canciones!');
+    } else {
+      console.log(`La biblioteca tiene ${library.length} canciones: ${library.map(s => s.title).join(', ')}`);
+    }
+  }, [library]);
+
+
+  return (
+    <div className="App">
+      <Header />
+      <div className="container">
+        <SearchResults songs={searchResults} onAdd={addToLibrary} />
+        <Library songs={library} onRemove={removeFromLibrary} />
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default App;

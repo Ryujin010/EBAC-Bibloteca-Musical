@@ -1,0 +1,60 @@
+.song-item {
+  background-color: #f8f9fa;
+  padding: 12px 16px;
+  margin: 8px 0;
+  border-radius: 6px;
+  border-left: 4px solid #1db954;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.2s ease;
+}
+
+.song-item:hover {
+  background-color: #e9ecef;
+}
+
+.song-info {
+  flex: 1;
+}
+
+.song-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #212529;
+}
+
+.song-artist {
+  color: #6c757d;
+  margin-left: 8px;
+}
+
+.song-duration {
+  color: #6c757d;
+  font-size: 0.9rem;
+  margin-left: 16px;
+}
+
+.song-actions {
+  margin-left: 16px;
+}
+
+.add-button {
+  background-color: #1db954;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.add-button:hover {
+  background-color: #1aa34a;
+}
+
+.add-button:active {
+  transform: scale(0.95);
+}
