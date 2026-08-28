@@ -1,21 +1,21 @@
 import React from 'react';
 import './Song/styles.css';
 
-function Song({ title, artist, duration, onAdd }) {
+function Song({ title, artist, duration, thumb }) {
   return (
-    <div className="song-item">
-      <div className="song-info">
-        <span className="song-title">{title}</span>
-        <span className="song-artist">- {artist}</span>
-        <span className="song-duration">⏱ {duration}</span>
-      </div>
-      {onAdd && (
-        <div className="song-actions">
-          <button className="add-button" onClick={onAdd}>
-            ➕ Agregar
-          </button>
-        </div>
+    <div className="song">
+      {thumb && (
+        <img
+          src={thumb}
+          alt={`Portada de ${title}`}
+          className="song-thumb"
+        />
       )}
+      <div className="song-info">
+        <h3>{title}</h3>
+        <p>{artist}</p>
+        <span>{duration}</span>
+      </div>
     </div>
   );
 }

@@ -1,3 +1,4 @@
+/* Estilos globales */
 * {
   margin: 0;
   padding: 0;
@@ -5,13 +6,9 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  background-color: #f0f2f5;
-  color: #212529;
-  margin: 0;
-  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  background-color: #f7fafc;
+  color: #2d3748;
 }
 
 .App {
@@ -22,20 +19,55 @@ body {
 
 .container {
   display: flex;
-  gap: 30px;
-  margin-top: 30px;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
 }
 
-@media (max-width: 768px) {
+/* Mensajes de carga y error */
+.message {
+  padding: 1rem;
+  margin: 1rem 0;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+}
+
+.retry-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+.retry-button:hover {
+  background-color: #0056b3;
+}
+
+/* Layout de dos columnas para resultados y biblioteca */
+.search-results,
+.library {
+  flex: 1;
+}
+
+@media (min-width: 768px) {
   .container {
-    flex-direction: column;
-  }
-}
-
-  .search-results {
-    margin-right: 0;
+    flex-direction: row;
+    align-items: flex-start;
   }
   
+  .search-results,
   .library {
-    margin-left: 0;
+    flex: 1;
   }
+}

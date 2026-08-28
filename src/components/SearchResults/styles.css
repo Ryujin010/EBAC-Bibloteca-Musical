@@ -1,5 +1,4 @@
 .search-results {
-  flex: 2;
   background: white;
   border-radius: 12px;
   padding: 20px;
@@ -14,58 +13,49 @@
   font-size: 1.5rem;
 }
 
-.search-results .song-item {
+.search-results .empty-message {
+  color: #a0aec0;
+  text-align: center;
+  padding: 40px 0;
+  font-size: 1.1rem;
+}
+
+.song-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 0;
+  padding: 10px 0;
   border-bottom: 1px solid #edf2f7;
 }
 
-.search-results .song-item:last-child {
+.song-item:last-child {
   border-bottom: none;
 }
 
-.search-results .song-info {
+.song-link {
   flex: 1;
+  text-decoration: none;
+  color: inherit;
 }
 
-.search-results .song-info h3 {
-  margin: 0;
-  font-size: 1.1rem;
-  color: #2d3748;
+.song-link:hover .song-info h3 {
+  color: #4299e1;
 }
 
-.search-results .song-info p {
-  margin: 4px 0 0;
-  color: #718096;
-  font-size: 0.9rem;
-}
-
-.search-results .song-info span {
-  display: block;
-  font-size: 0.85rem;
-  color: #a0aec0;
-  margin-top: 2px;
-}
-
-.add-btn {
-  background: #4299e1;
+.add-button {
+  background: #48bb78;
   color: white;
   border: none;
-  padding: 8px 16px;
+  padding: 5px 12px;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   transition: all 0.3s ease;
+  margin-left: 10px;
 }
 
-.add-btn:hover {
-  background: #3182ce;
+.add-button:hover {
+  background: #38a169;
   transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(66, 153, 225, 0.3);
-}
-
-.add-btn:active {
-  transform: translateY(0);
+  box-shadow: 0 4px 10px rgba(72, 187, 120, 0.3);
 }

@@ -62,10 +62,16 @@
   cursor: pointer;
   font-size: 0.8rem;
   transition: all 0.3s ease;
+  margin-left: 1rem;
 }
 
 .library .remove-btn:hover {
   background: #f56565;
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(245, 101, 101, 0.3);
+}
+
+.library .remove-btn:focus {
+  outline: 2px solid #fc8181;
+  outline-offset: 2px;
 }
