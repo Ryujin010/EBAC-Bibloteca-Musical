@@ -1,7 +1,20 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
-import './SongDetail/styles.css';
+
+import {
+  DetailContainer,
+  BackLink,
+  AlbumDetail,
+  AlbumTitle,
+  AlbumInfo,
+  AlbumArt,
+  TrackList,
+  TrackListTitle,
+  TrackItem,
+  Message,
+  RetryButton,
+} from './SongDetail/SongDetail.styled';
 
 function SongDetail() {
   const { id } = useParams();
@@ -13,29 +26,29 @@ function SongDetail() {
 
   if (loading) {
     return (
-      <div className="detail-container">
-        <p className="message">Cargando detalles del álbum...</p>
-      </div>
+      <DetailContainer>
+        <Message>Cargando detalles del álbum...</Message>
+      </DetailContainer>
     );
   }
 
   if (error) {
     return (
-      <div className="detail-container">
-        <div className="message error">
+      <DetailContainer>
+        <Message $error={true}>
           <p>Hubo un problema al cargar los detalles: {error}</p>
-          <button onClick={refetch} className="retry-button">Reintentar</button>
-        </div>
-      </div>
+          <RetryButton onClick={refetch}>Reintentar</RetryButton>
+        </Message>
+      </DetailContainer>
     );
   }
 
   if (!data || !data.album || data.album.length === 0) {
     return (
-      <div className="detail-container">
-        <p className="message">No se encontraron detalles para este álbum.</p>
-        <Link to="/" className="back-link">Volver a la búsqueda</Link>
-      </div>
+      <DetailContainer>
+        <Message>No se encontraron detalles para este álbum.</Message>
+        <BackLink to="/">Volver a la búsqueda</BackLink>
+      </DetailContainer>
     );
   }
 
@@ -51,37 +64,38 @@ function SongDetail() {
   }
 
   return (
-    <div className="detail-container">
-      <Link to="/" className="back-link">← Volver a la búsqueda</Link>
-      
-      <div className="album-detail">
-        <h1>{album.strAlbum}</h1>
-        <div className="album-info">
+    <DetailContainer>
+      <BackLink as={Link} to="/">
+        ← Volver a la búsqueda
+      </BackLink>
+      <AlbumDetail>
+        <AlbumTitle>{album.strAlbum}</AlbumTitle>
+        <AlbumInfo>
           <p><strong>Artista:</strong> {album.strArtist}</p>
           <p><strong>Año:</strong> {album.strReleaseDate ? album.strReleaseDate.substring(0, 4) : 'N/A'}</p>
           <p><strong>Género:</strong> {album.strGenre || 'N/A'}</p>
           <p><strong>Descripción:</strong> {album.strDescriptionEN || 'Sin descripción disponible'}</p>
           {album.strAlbumThumb && (
-            <img 
+            <AlbumArt
               src={album.strAlbumThumb} 
-              alt={album.strAlbum}
+              alt={album.strAlbum} 
               className="album-art"
             />
           )}
-        </div>
+        </AlbumInfo>
 
         {tracks.length > 0 && (
-          <div className="track-list">
-            <h2>Lista de canciones</h2>
+          <TrackList>
+            <TrackListTitle>Lista de canciones</TrackListTitle>
             <ul>
               {tracks.map((track, index) => (
-                <li key={index}>{index + 1}. {track}</li>
+                <TrackItem key={index}>{index + 1}. {track}</TrackItem>
               ))}
             </ul>
-          </div>
+          </TrackList>
         )}
-      </div>
-    </div>
+      </AlbumDetail>
+    </DetailContainer>
   );
 }
 

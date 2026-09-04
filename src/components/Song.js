@@ -1,9 +1,9 @@
 import React from 'react';
-import './Song/styles.css';
+import { SongContainer, SongTitle, SongArtist, SongDuration } from './Song/Song.styled';
 
 function Song({ title, artist, duration, thumb }) {
   return (
-    <div className="song">
+    <SongContainer>
       {thumb && (
         <img
           src={thumb}
@@ -12,11 +12,11 @@ function Song({ title, artist, duration, thumb }) {
         />
       )}
       <div className="song-info">
-        <h3>{title}</h3>
-        <p>{artist}</p>
-        <span>{duration}</span>
+        <SongTitle>{title}</SongTitle>
+        <SongArtist>{artist}</SongArtist>
+        <SongDuration>{duration}</SongDuration>
       </div>
-    </div>
+    </SongContainer>
   );
 }
 

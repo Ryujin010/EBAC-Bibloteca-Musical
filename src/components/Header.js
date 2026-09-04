@@ -1,12 +1,12 @@
 import React from 'react';
-import './Header/styles.css';
+import { HeaderContainer, Title, Subtitle } from './Header/Header.styled';
 
 function Header() {
   return (
-    <header className="header">
-      <h1>🎵 Biblioteca Musical</h1>
-      <p>Descubre y Guarda Tus Canciones Favoritas</p>
-    </header>
+    <HeaderContainer>
+      <Title>🎵 Biblioteca Musical</Title>
+      <Subtitle>Descubre y Guarda Tus Canciones Favoritas</Subtitle>
+    </HeaderContainer>
   );
 }
 

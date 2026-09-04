@@ -1,37 +1,48 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './SearchResults/styles.css';
 import Song from './Song';
 
+import {
+  ResultsContainer,
+  ResultsTitle,
+  EmptyMessage,
+  SongItem,
+  SongLink,
+  AddButton,
+} from './SearchResults/SearchResults.styled';
+
+
 function SearchResults({ songs, onAdd }) {
+  const isInLibrary = false;
+
   return (
-    <div className="search-results">
-      <h2>Resultados de búsqueda</h2>
+    <ResultsContainer>
+      <ResultsTitle>Resultados de búsqueda</ResultsTitle>
       {songs.length === 0 ? (
-        <p className="empty-message">No hay canciones para mostrar. Realiza una búsqueda.</p>
+        <EmptyMessage>No hay canciones para mostrar. Realiza una búsqueda.</EmptyMessage>
       ) : (
         <div className="song-list">
           {songs.map((song) => (
-            <div key={song.id} className="song-item">
-              <Link to={`/song/${song.id}`} className="song-link">
+            <SongItem key={song.id}>
+              <SongLink as={Link} to={`/song/${song.id}`}>
                 <Song
                   title={song.title}
                   artist={song.artist}
                   duration={song.duration}
                   thumb={song.thumb}
                 />
-              </Link>
-              <button
-                className="add-button"
+              </SongLink>
+              <AddButton
+                $primary={isInLibrary}     // Cambia el color según si la canción está en la biblioteca
                 onClick={() => onAdd(song)}
               >
-                Agregar a mi biblioteca
-              </button>
-            </div>
+                {isInLibrary ? 'Eliminar de mi Biblioteca' : 'Agregar a mi Biblioteca'}
+              </AddButton>
+            </SongItem>
           ))}
         </div>
       )}
-    </div>
+    </ResultsContainer>
   );
 }
 

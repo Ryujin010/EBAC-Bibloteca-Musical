@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import './App.css';
 import Header from './components/Header';
 import SearchBar from './components/SearchBar';
 import SearchResults from './components/SearchResults';
 import Library from './components/Library';
 import SongDetail from './components/SongDetail';
 import useFetch from './hooks/useFetch';
+
+import {
+  AppContainer,
+  ContentContainer,
+  Message,
+  ErrorMessage,
+  RetryButton,
+} from './components/App.styled';
+
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -67,9 +75,9 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <AppContainer className="App">
       <Header />
-      <div className="container">
+      <ContentContainer>
         <SearchBar onSearch={handleSearch} />
 
         <Routes>
@@ -77,12 +85,12 @@ function App() {
             path="/" 
             element={
               <>
-                {loading && <p className="message">Cargando canciones...</p>}
+                {loading && <Message>Cargando canciones...</Message>}
                 {error && (
-                  <div className="message error">
+                  <ErrorMessage>
                     <p>Hubo un problema al cargar los datos: {error}</p>
-                    <button onClick={handleRetry} className="retry-button">Reintentar</button>
-                  </div>
+                    <RetryButton onClick={handleRetry}>Reintentar</RetryButton>
+                  </ErrorMessage>
                 )}
                 {!loading && !error && (
                   <>
@@ -101,8 +109,8 @@ function App() {
           />
           <Route path="/song/:id" element={<SongDetail />} />
         </Routes>
-      </div>
-    </div>
+      </ContentContainer>
+    </AppContainer>
   );
 }
 
