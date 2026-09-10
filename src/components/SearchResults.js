@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addSong } from '../redux/libraryActions';
 import Song from './Song';
 
 import {
@@ -12,8 +14,12 @@ import {
 } from './SearchResults/SearchResults.styled';
 
 
-function SearchResults({ songs, onAdd }) {
-  const isInLibrary = false;
+function SearchResults({ songs }) {
+  const dispach = useDispatch();
+
+  const handleAdd = (song) => {
+    dispach(addSong(song));
+  }
 
   return (
     <ResultsContainer>
@@ -32,11 +38,8 @@ function SearchResults({ songs, onAdd }) {
                   thumb={song.thumb}
                 />
               </SongLink>
-              <AddButton
-                $primary={isInLibrary}     // Cambia el color según si la canción está en la biblioteca
-                onClick={() => onAdd(song)}
-              >
-                {isInLibrary ? 'Eliminar de mi Biblioteca' : 'Agregar a mi Biblioteca'}
+              <AddButton onClick={() => handleAdd(song)}>             
+                Agregar a mi Biblioteca
               </AddButton>
             </SongItem>
           ))}

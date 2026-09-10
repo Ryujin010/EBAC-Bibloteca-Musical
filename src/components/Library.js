@@ -1,4 +1,6 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { removeSong } from '../redux/libraryActions';
 import Song from './Song';
 
 import {
@@ -9,7 +11,17 @@ import {
   RemoveButton,
 } from './Library/Library.styled';
 
-function Library({ songs, onRemove }) {
+
+function Library() {
+
+  const songs = useSelector((state) => state);
+  const dispatch = useDispatch();
+
+  const handleRemove = (songId) => {
+    dispatch(removeSong(songId));
+  };
+
+  
   return (
     <LibraryContainer>
       <LibraryTitle>📚 Mi Biblioteca ({songs.length})</LibraryTitle>
@@ -27,7 +39,7 @@ function Library({ songs, onRemove }) {
               />
               <RemoveButton
                 $danger={true}
-                onClick={() => onRemove(song.id)}
+                onClick={() => handleRemove(song.id)}
               >
                 ❌ Eliminar
               </RemoveButton>

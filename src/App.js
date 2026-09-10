@@ -18,24 +18,23 @@ import {
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [library, setLibrary] = useState([]);
 
   // URL usando el proxy local
   const apiUrl = searchTerm
     ? `/searchalbum.php?s=${encodeURIComponent(searchTerm)}`
     : '';
 
-  console.log('🔍 URL (proxy local):', apiUrl);
-
   const { data, loading, error, refetch } = useFetch(apiUrl);
   const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
     if (data && data.album) {
-      const albums = data.album.map(album => ({
+      const albums = data.album.map((album) => ({
         id: album.idAlbum,
         title: album.strAlbum,
         artist: album.strArtist,
+        album: album.strAlbum,
+        //thumb: album.strAlbumThumb,
         duration: album.strReleaseDate ? album.strReleaseDate.substring(0, 4) : 'N/A',
         albumId: album.idAlbum
       }));
@@ -45,27 +44,7 @@ function App() {
     }
   }, [data]);
 
-  const addToLibrary = (song) => {
-    const exists = library.some(item => item.id === song.id);
-    if (exists) {
-      alert('Esta canción ya está en tu biblioteca');
-      return;
-    }
-    setLibrary([...library, song]);
-  };
-
-  const removeFromLibrary = (songId) => {
-    setLibrary(library.filter(song => song.id !== songId));
-  };
-
-  useEffect(() => {
-    if (library.length === 0) {
-      console.log('La biblioteca está vacía. ¡Agrega canciones!');
-    } else {
-      console.log(`La biblioteca tiene ${library.length} canciones: ${library.map(s => s.title).join(', ')}`);
-    }
-  }, [library]);
-
+  
   const handleSearch = (term) => {
     setSearchTerm(term);
   };
@@ -94,14 +73,8 @@ function App() {
                 )}
                 {!loading && !error && (
                   <>
-                    <SearchResults 
-                      songs={searchResults} 
-                      onAdd={addToLibrary} 
-                    />
-                    <Library 
-                      songs={library} 
-                      onRemove={removeFromLibrary} 
-                    />
+                    <SearchResults songs={searchResults} />
+                    <Library />
                   </>
                 )}
               </>
