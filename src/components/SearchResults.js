@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { addSong } from '../redux/libraryActions';
+import { useDispatch, useSelector } from 'react-redux';
+import { addSong } from '../redux/slices/librarySlice';
 import Song from './Song';
 
 import {
@@ -14,8 +14,9 @@ import {
 } from './SearchResults/SearchResults.styled';
 
 
-function SearchResults({ songs }) {
+function SearchResults() {
   const dispach = useDispatch();
+  const songs = useSelector((state) => state.search.results);
 
   const handleAdd = (song) => {
     dispach(addSong(song));

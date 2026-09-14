@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeSong } from '../redux/libraryActions';
+import { removeSong } from '../redux/slices/librarySlice';
 import Song from './Song';
 
 import {
@@ -14,7 +14,7 @@ import {
 
 function Library() {
 
-  const songs = useSelector((state) => state);
+  const songs = useSelector((state) => state.library);
   const dispatch = useDispatch();
 
   const handleRemove = (songId) => {

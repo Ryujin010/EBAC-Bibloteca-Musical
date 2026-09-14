@@ -7,6 +7,7 @@ export const LibraryContainer = styled.div`
   padding: ${props => props.theme.spacing.large};
   box-shadow: ${props => props.theme.shadows.medium};
   min-height: 300px;
+  border-top: 4px solid ${props => props.theme.colors.secondary};
 `;
 
 export const LibraryTitle = styled.h2`
@@ -30,13 +31,17 @@ export const LibraryItem = styled.div`
   align-items: center;
   padding: ${props => props.theme.spacing.medium} 0;
   border-bottom: 1px solid ${props => props.theme.colors.borderLight};
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: #f7fafc;
+  }
 
   &:last-child {
     border-bottom: none;
   }
 `;
 
-// Botón con props dinámicas: color rojo para eliminar
 export const RemoveButton = styled.button`
   background: ${props => props.$danger ? props.theme.colors.danger : props.theme.colors.primary};
   color: white;
@@ -45,6 +50,7 @@ export const RemoveButton = styled.button`
   border-radius: ${props => props.theme.borderRadius.small};
   cursor: pointer;
   font-size: ${props => props.theme.fontSizes.small};
+  font-weight: 600;
   transition: all 0.3s ease;
   margin-left: ${props => props.theme.spacing.medium};
   white-space: nowrap;

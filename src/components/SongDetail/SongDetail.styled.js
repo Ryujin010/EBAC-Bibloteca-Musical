@@ -76,7 +76,6 @@ export const TrackItem = styled.li`
   }
 `;
 
-// Mensaje con props dinámicas para carga y error
 export const Message = styled.p`
   padding: ${props => props.theme.spacing.medium};
   margin: ${props => props.theme.spacing.medium} 0;

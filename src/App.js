@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import Header from './components/Header';
 import SearchBar from './components/SearchBar';
 import SearchResults from './components/SearchResults';
 import Library from './components/Library';
 import SongDetail from './components/SongDetail';
-import useFetch from './hooks/useFetch';
+import { fetchSongs } from './redux/slices/searchSlice';
 
 import {
   AppContainer,
@@ -17,54 +18,29 @@ import {
 
 
 function App() {
-  const [searchTerm, setSearchTerm] = useState('');
-
-  // URL usando el proxy local
-  const apiUrl = searchTerm
-    ? `/searchalbum.php?s=${encodeURIComponent(searchTerm)}`
-    : '';
-
-  const { data, loading, error, refetch } = useFetch(apiUrl);
-  const [searchResults, setSearchResults] = useState([]);
-
-  useEffect(() => {
-    if (data && data.album) {
-      const albums = data.album.map((album) => ({
-        id: album.idAlbum,
-        title: album.strAlbum,
-        artist: album.strArtist,
-        album: album.strAlbum,
-        //thumb: album.strAlbumThumb,
-        duration: album.strReleaseDate ? album.strReleaseDate.substring(0, 4) : 'N/A',
-        albumId: album.idAlbum
-      }));
-      setSearchResults(albums);
-    } else {
-      setSearchResults([]);
-    }
-  }, [data]);
-
-  
-  const handleSearch = (term) => {
-    setSearchTerm(term);
-  };
+  const dispatch = useDispatch();
+  const { loading, error, lastTerm } = useSelector((state) => state.search);
 
   const handleRetry = () => {
-    refetch();
+
+    if (lastTerm) {
+      dispatch(fetchSongs(lastTerm));
+    }
   };
 
   return (
     <AppContainer className="App">
       <Header />
       <ContentContainer>
-        <SearchBar onSearch={handleSearch} />
+        
+        <SearchBar />
 
         <Routes>
           <Route 
             path="/" 
             element={
               <>
-                {loading && <Message>Cargando canciones...</Message>}
+                {loading && <Message $loading>Cargando canciones...</Message>}
                 {error && (
                   <ErrorMessage>
                     <p>Hubo un problema al cargar los datos: {error}</p>
@@ -73,7 +49,7 @@ function App() {
                 )}
                 {!loading && !error && (
                   <>
-                    <SearchResults songs={searchResults} />
+                    <SearchResults />
                     <Library />
                   </>
                 )}

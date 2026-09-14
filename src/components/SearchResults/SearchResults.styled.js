@@ -6,6 +6,7 @@ export const ResultsContainer = styled.div`
   border-radius: ${props => props.theme.borderRadius.large};
   padding: ${props => props.theme.spacing.large};
   box-shadow: ${props => props.theme.shadows.medium};
+  border-top: 4px solid ${props => props.theme.colors.primary};
 `;
 
 export const ResultsTitle = styled.h2`
@@ -14,6 +15,9 @@ export const ResultsTitle = styled.h2`
   padding-bottom: ${props => props.theme.spacing.medium};
   margin-bottom: ${props => props.theme.spacing.large};
   font-size: ${props => props.theme.fontSizes.large};
+  display: flex;
+  align-items: center;
+  gap: ${props => props.theme.spacing.small};
 `;
 
 export const EmptyMessage = styled.p`
@@ -29,6 +33,11 @@ export const SongItem = styled.div`
   align-items: center;
   padding: ${props => props.theme.spacing.medium} 0;
   border-bottom: 1px solid ${props => props.theme.colors.borderLight};
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: #f7fafc;
+  }
 
   &:last-child {
     border-bottom: none;
@@ -46,21 +55,21 @@ export const SongLink = styled.a`
   }
 `;
 
-// Botón con props dinámicas: color cambia según prop `$primary`
 export const AddButton = styled.button`
-  background: ${props => props.$primary ? props.theme.colors.secondary : props.theme.colors.primary};
+  background: ${props => props.theme.colors.secondary};
   color: white;
   border: none;
   padding: ${props => props.theme.spacing.small} ${props => props.theme.spacing.medium};
   border-radius: ${props => props.theme.borderRadius.small};
   cursor: pointer;
   font-size: ${props => props.theme.fontSizes.small};
+  font-weight: 600;
   transition: all 0.3s ease;
   margin-left: ${props => props.theme.spacing.medium};
   white-space: nowrap;
 
   &:hover {
-    background: ${props => props.$primary ? props.theme.colors.secondaryDark : props.theme.colors.primaryDark};
+    background: ${props => props.theme.colors.secondaryDark};
     transform: translateY(-2px);
     box-shadow: ${props => props.theme.shadows.medium};
   }

@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { fetchSongs, resetResults } from '../redux/slices/searchSlice';
 import { Form, Input, Button } from './SearchBar/SearchBar.styled';
 
 
 function SearchBar({ onSearch }) {
   const [inputValue, setInputValue] = useState('');
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (inputValue.trim()) {
-      onSearch(inputValue.trim());
+    const term = inputValue.trim();
+
+    if (term) {
+      dispatch(fetchSongs(term));
+    } else {
+      dispatch(resetResults);
     }
   };
 

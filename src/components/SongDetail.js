@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import useFetch from '../hooks/useFetch';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchAlbumDetail, clearDetail } from '../redux/slices/detailSlice';
 
 import {
   DetailContainer,
@@ -18,11 +19,28 @@ import {
 
 function SongDetail() {
   const { id } = useParams();
+  const dispatch = useDispatch();
+  const { album, tracks, loading, error } = useSelector((state) => state.detail);
 
-  // URL usando el proxy local para obtener detalles del álbum
-  const apiUrl = `/album.php?m=${id}`;
+    // Carga detalles a montar o cuando cambie de id
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchAlbumDetail(id));
+    }
 
-  const { data, loading, error, refetch } = useFetch(apiUrl);
+    // Limpia el detalle al desmotar
+    return() => {
+      dispatch(clearDetail());
+    };
+  }, [dispatch, id]);
+
+  // reitentar la carga
+
+  const handleRetry = () => {
+    if (id) {
+      dispatch(fetchAlbumDetail(id));
+    }
+  };
 
   if (loading) {
     return (
@@ -37,13 +55,13 @@ function SongDetail() {
       <DetailContainer>
         <Message $error={true}>
           <p>Hubo un problema al cargar los detalles: {error}</p>
-          <RetryButton onClick={refetch}>Reintentar</RetryButton>
+          <RetryButton onClick={handleRetry}>Reintentar</RetryButton>
         </Message>
       </DetailContainer>
     );
   }
 
-  if (!data || !data.album || data.album.length === 0) {
+  if (!album) {
     return (
       <DetailContainer>
         <Message>No se encontraron detalles para este álbum.</Message>
@@ -52,16 +70,7 @@ function SongDetail() {
     );
   }
 
-  const album = data.album[0];
-
-  // Extraer lista de canciones (strTrack1 ... strTrack20)
-  const tracks = [];
-  for (let i = 1; i <= 20; i++) {
-    const trackKey = `strTrack${i}`;
-    if (album[trackKey]) {
-      tracks.push(album[trackKey]);
-    }
-  }
+  
 
   return (
     <DetailContainer>
@@ -72,9 +81,15 @@ function SongDetail() {
         <AlbumTitle>{album.strAlbum}</AlbumTitle>
         <AlbumInfo>
           <p><strong>Artista:</strong> {album.strArtist}</p>
-          <p><strong>Año:</strong> {album.strReleaseDate ? album.strReleaseDate.substring(0, 4) : 'N/A'}</p>
+          <p><strong>Año:</strong> {' '} 
+          {album.strReleaseDate ? 
+          album.strReleaseDate.substring(0, 4) 
+          : 'N/A'}
+          </p>
           <p><strong>Género:</strong> {album.strGenre || 'N/A'}</p>
-          <p><strong>Descripción:</strong> {album.strDescriptionEN || 'Sin descripción disponible'}</p>
+          <p><strong>Descripción:</strong> {' '}
+          {album.strDescriptionEN || 'Sin descripción disponible'}
+          </p>
           {album.strAlbumThumb && (
             <AlbumArt
               src={album.strAlbumThumb} 
@@ -87,9 +102,12 @@ function SongDetail() {
         {tracks.length > 0 && (
           <TrackList>
             <TrackListTitle>Lista de canciones</TrackListTitle>
-            <ul>
+            <ul style={{ listStyle: 'none', padding: 0}}>
               {tracks.map((track, index) => (
-                <TrackItem key={index}>{index + 1}. {track}</TrackItem>
+                <TrackItem key={track.idTrack || index}>
+                   {track.intTrackNumber || index + 1}. 
+                   {track.strTrack}
+                </TrackItem>
               ))}
             </ul>
           </TrackList>
