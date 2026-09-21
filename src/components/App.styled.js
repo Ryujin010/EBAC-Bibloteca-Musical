@@ -18,25 +18,24 @@ export const ContentContainer = styled.div`
   }
 `;
 
-export const Message = styled.p`
+export const Message = styled.div`
   padding: ${props => props.theme.spacing.medium};
   margin: ${props => props.theme.spacing.medium} 0;
   text-align: center;
   font-size: ${props => props.theme.fontSizes.medium};
   border-radius: ${props => props.theme.borderRadius.medium};
-  background: ${props => props.$loading ? '#ebf8ff' : 'transparent'};
-  color: ${props => props.$loading ? '#2b6cb0' : props.theme.colors.text};
-  border: ${props => props.$loading ? '1px solid #bee3f8' : 'none'};
-  font-weight: ${props => props.$loading ? '600' : '400'};
+  background: ${props => (props.$loading ? '#ebf8ff' : 'transparent')};
+  color: ${props => (props.$loading ? '#2b6cb0' : props.theme.colors.text)};
+  border: ${props => (props.$loading ? '1px solid #bee3f8' : 'none')};
+  font-weight: ${props => (props.$loading ? '600' : '400')};
   display: flex;
   align-items: center;
   justify-content: center;
   gap: ${props => props.theme.spacing.small};
 
-  /* Spinner animado cuando está en estado de carga */
   &::before {
-    content: ${props => props.$loading ? '""' : 'none'};
-    display: ${props => props.$loading ? 'inline-block' : 'none'};
+    content: ${props => (props.$loading ? '""' : 'none')};
+    display: ${props => (props.$loading ? 'inline-block' : 'none')};
     width: 16px;
     height: 16px;
     border: 2px solid #bee3f8;

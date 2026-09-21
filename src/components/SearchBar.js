@@ -15,7 +15,7 @@ function SearchBar({ onSearch }) {
     if (term) {
       dispatch(fetchSongs(term));
     } else {
-      dispatch(resetResults);
+      dispatch(resetResults());
     }
   };
 

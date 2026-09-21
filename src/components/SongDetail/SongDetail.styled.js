@@ -76,15 +76,16 @@ export const TrackItem = styled.li`
   }
 `;
 
-export const Message = styled.p`
+// Mensaje como <div> para evitar anidamiento inválido de <p>
+export const Message = styled.div`
   padding: ${props => props.theme.spacing.medium};
   margin: ${props => props.theme.spacing.medium} 0;
   text-align: center;
   font-size: ${props => props.theme.fontSizes.medium};
   border-radius: ${props => props.theme.borderRadius.small};
-  background: ${props => props.$error ? '#f8d7da' : 'transparent'};
-  color: ${props => props.$error ? '#721c24' : props.theme.colors.text};
-  border: ${props => props.$error ? '1px solid #f5c6cb' : 'none'};
+  background: ${props => (props.$error ? '#f8d7da' : 'transparent')};
+  color: ${props => (props.$error ? '#721c24' : props.theme.colors.text)};
+  border: ${props => (props.$error ? '1px solid #f5c6cb' : 'none')};
 `;
 
 export const RetryButton = styled.button`
