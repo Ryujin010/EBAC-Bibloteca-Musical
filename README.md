@@ -21,10 +21,6 @@ Proyecto desarrollado durante mi formación en **EBAC**.
 
 Biblioteca Musical es una aplicación web que permite explorar y organizar una colección de música. El estado de la aplicación se centraliza con **Redux**, lo que hace que los datos fluyan de forma predecible, y el proyecto incluye pruebas automatizadas en la carpeta `__tests__`.
 
-<!-- Agrega aquí una captura de pantalla de tu proyecto:
-![Vista previa](./img/preview.png)
--->
-
 ## 🛠️ Tecnologías
 
 - **JavaScript**: lógica de la aplicación
